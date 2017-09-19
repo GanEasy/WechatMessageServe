@@ -18,6 +18,7 @@ func echoWxCallbackHandler(c echo.Context) error {
 }
 
 func main() {
+	orm.DB().AutoMigrate(&orm.User{})
 
 	host := "https://readfollow.com"
 	e := echo.New()
