@@ -94,12 +94,22 @@ func menuClickEventHandler(ctx *core.Context) {
 // SetWebGetSignTaskValueForWechatPush ..
 func SetWebGetSignTaskValueForWechatPush(str, openID string) bool {
 	i64, err := strconv.ParseInt(str, 10, 32)
+	fmt.Println(i64)
 	if err != nil {
 		// 这里面用正则匹配出整数
 		istr := code.FindString(`(?P<int>\d+)`, str, "int")
 		i64, _ = strconv.ParseInt(istr, 10, 64)
 		user := orm.User{}
 		user.GetUserByID(int(i64))
+		if user.Registered {
+			user.OpenID = openID
+			user.Save()
+			return true
+		}
+	} else {
+		user := orm.User{}
+		user.GetUserByID(int(i64))
+		fmt.Println(user)
 		if user.Registered {
 			user.OpenID = openID
 			user.Save()
