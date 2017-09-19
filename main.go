@@ -7,6 +7,7 @@ import (
 	"github.com/GanEasy/WechatMessageServe/orm"
 	"github.com/GanEasy/WechatMessageServe/repository"
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 // 接入微信接口服务
@@ -18,9 +19,11 @@ func echoWxCallbackHandler(c echo.Context) error {
 
 func main() {
 
-	host := "http://192.168.1.152:8888"
+	host := "https://readfollow.com"
 	e := echo.New()
 
+	e.Pre(middleware.HTTPSRedirect())
+	e.Pre(middleware.HTTPSNonWWWRedirect())
 	// Middleware
 	// e.Use(middleware.Logger())
 	// e.Use(middleware.Recover())
@@ -124,5 +127,7 @@ func main() {
 
 	// e.Static("/", "src")
 	// Start server
-	e.Logger.Fatal(e.Start(":8888"))
+	// e.Logger.Fatal(e.Start(":8888"))
+	e.Logger.Fatal(e.StartAutoTLS(":443"))
+
 }

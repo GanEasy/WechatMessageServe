@@ -14,4 +14,4 @@
 .glide/
 
 # sqlite file for database
-.db
+*.db
