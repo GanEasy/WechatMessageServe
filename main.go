@@ -179,7 +179,7 @@ func main() {
 
 	e := echo.New()
 	e.Renderer = t
-	// e.Pre(middleware.HTTPSRedirect())
+	e.Pre(middleware.HTTPSRedirect())
 	e.Pre(middleware.HTTPSNonWWWRedirect())
 	// Middleware
 	e.Use(middleware.Logger())
@@ -197,6 +197,8 @@ func main() {
 	e.GET("/unsubscribed/:token", Unsubscribed)
 
 	e.GET("/text/:email", Text)
+
+	e.GET("/article/:email", Article)
 
 	e.File("/favicon.ico", "images/favicon.ico")
 
