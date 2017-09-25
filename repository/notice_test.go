@@ -4,14 +4,12 @@
 
 package repository
 
-import (
-	"fmt"
-	"os"
-	"testing"
-)
+import "testing"
 
 func Test_SendText(t *testing.T) {
-	// SendText("id", "hello")
-	logname := os.Getenv("MAX_WORKERS")
-	fmt.Printf("MAX_WORKERS is %s\n", logname)
+	SendText("o7UTkjr7if4AQgcPmveQ5wJ5alsA", "hello")
+}
+
+func Test_SendArticle(t *testing.T) {
+	SendArticle("o7UTkjr7if4AQgcPmveQ5wJ5alsA", "title", "description", "", "")
 }

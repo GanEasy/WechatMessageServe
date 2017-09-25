@@ -14,6 +14,7 @@ type ArticleNotice struct {
 	Title       string
 	Description string
 	PicURL      string
+	URL         string
 }
 
 //Send Notice.Run
@@ -30,9 +31,10 @@ func (n *ArticleNotice) Send() {
 
 	news := []custom.Article{
 		custom.Article{
-			Title:       "标题要长",
-			Description: `一连十余日，都在江上行走。`,
-			PicURL:      "http://static.zongheng.com/upload/cover/32/31/32314e451879d1f831e7f5f38afe8561.jpeg",
+			Title:       n.Title,
+			Description: n.Description,
+			PicURL:      n.PicURL,
+			URL:         n.URL,
 		},
 	}
 

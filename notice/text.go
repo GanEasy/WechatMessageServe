@@ -1,6 +1,8 @@
 package notice
 
 import (
+	"fmt"
+
 	"github.com/chanxuehong/wechat.v2/mp/core"
 	"github.com/chanxuehong/wechat.v2/mp/message/custom"
 	"github.com/chanxuehong/wechat.v2/mp/message/template"
@@ -21,6 +23,7 @@ type FollowMSG struct {
 //Send Notice.Run
 func (n *TextNotice) Send() {
 
+	fmt.Printf("run text send")
 	ats := core.NewDefaultAccessTokenServer("wx702b93aef72f3549", "8b69f45fc737a938cbaaffc05b192394", nil)
 	clt := core.NewClient(ats, nil)
 
@@ -30,7 +33,7 @@ func (n *TextNotice) Send() {
 
 	if e != nil {
 
-		// fmt.Println(e.Error())
+		fmt.Println(e.Error())
 
 		msg := template.TemplateMessage2{
 			ToUser:     n.OpenID,
@@ -45,4 +48,5 @@ func (n *TextNotice) Send() {
 		template.Send(clt, msg)
 	}
 
+	fmt.Printf("text send")
 }

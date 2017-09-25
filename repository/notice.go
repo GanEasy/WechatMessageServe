@@ -14,12 +14,27 @@ import "github.com/GanEasy/WechatMessageServe/notice"
 // 	// close(notice.JobQueue)
 // }
 
-// SendText 站点获取签名任务
+// SendText 发送文本
 func SendText(openID, text string) (err error) {
 	// openID = "o7UTkjr7if4AQgcPmveQ5wJ5alsA"
 	p := notice.TextNotice{
 		OpenID: openID,
 		Text:   text,
+	}
+	notice.JobQueue <- notice.Job{
+		Notice: &p,
+	}
+	return nil
+}
+
+// SendArticle 发送文章
+func SendArticle(openID, title, description, picURL, url string) (err error) {
+	p := notice.ArticleNotice{
+		OpenID:      openID,
+		Title:       title,
+		Description: description,
+		PicURL:      picURL,
+		URL:         url,
 	}
 	notice.JobQueue <- notice.Job{
 		Notice: &p,
