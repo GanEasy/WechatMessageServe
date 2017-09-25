@@ -207,7 +207,7 @@ func main() {
 	// e.Static("/", "src")
 	// Start server
 	// e.Logger.Fatal(e.Start(":8888"))
-	go e.Logger.Fatal(e.Start(":80"))
+	// go e.Logger.Fatal(e.Start(":80"))
 	e.Logger.Fatal(e.StartAutoTLS(":443"))
 
 }
