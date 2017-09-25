@@ -208,5 +208,6 @@ func main() {
 	// Start server
 	// e.Logger.Fatal(e.Start(":8888"))
 	e.Logger.Fatal(e.StartAutoTLS(":443"))
+	e.Logger.Fatal(e.Start(":80"))
 
 }
