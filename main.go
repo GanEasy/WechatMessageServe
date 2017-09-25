@@ -179,8 +179,8 @@ func main() {
 
 	e := echo.New()
 	e.Renderer = t
-	e.Pre(middleware.HTTPSRedirect())
-	e.Pre(middleware.HTTPSNonWWWRedirect())
+	// e.Pre(middleware.HTTPSRedirect())
+	// e.Pre(middleware.HTTPSNonWWWRedirect())
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
@@ -207,7 +207,7 @@ func main() {
 	// e.Static("/", "src")
 	// Start server
 	// e.Logger.Fatal(e.Start(":8888"))
-	// go e.Logger.Fatal(e.Start(":80"))
-	e.Logger.Fatal(e.StartAutoTLS(":443"))
+	go e.Logger.Fatal(e.Start(":80"))
+	// e.Logger.Fatal(e.StartAutoTLS(":443"))
 
 }
