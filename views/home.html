@@ -30,13 +30,59 @@
     
 <div class="container"> <!--start container  -->
 
-
+<h1>邮箱注册</h1>
 
 <form action="/reg">
   <div class="form-group">
     <label for="exampleInputEmail1">Email</label>
     <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
     <small id="emailHelp" class="form-text text-muted">请提供可用的邮箱进行验证.</small>
+  </div>
+  <button type="submit" class="btn btn-primary">提交</button>
+</form>
+
+<hr>
+<h1>发送文本信息</h1>
+
+<form action="/text">
+  <div class="form-group">
+    <label for="text-email">Email</label>
+    <input type="email" name="email" class="form-control" id="text-email" aria-describedby="textEmailHelp" placeholder="Enter email">
+    <small id="textEmailHelp" class="form-text text-muted">请输入提交通知的邮箱.</small>
+  </div>
+  <div class="form-group">
+    <label for="text-content">发送内容</label>
+    <input type="text" name="content" class="form-control" id="text-content" placeholder="Content">
+  </div>
+  <button type="submit" class="btn btn-primary">提交</button>
+</form>
+
+
+
+<hr>
+<h1>发送图文信息</h1>
+
+<form action="/article">
+  <div class="form-group">
+    <label for="news-email">Email</label>
+    <input type="email" name="email" class="form-control" id="news-email" aria-describedby="newsEmailHelp" placeholder="Enter email">
+    <small id="newsEmailHelp" class="form-text text-muted">请输入提交通知的邮箱.</small>
+  </div>
+  <div class="form-group">
+    <label for="news-title">title</label>
+    <input type="text" name="title" class="form-control" id="news-title" placeholder="title">
+  </div>
+  <div class="form-group">
+    <label for="news-description">description</label>
+    <input type="text" name="description" class="form-control" id="news-description" placeholder="description">
+  </div>
+  <div class="form-group">
+    <label for="news-cover">cover</label>
+    <input type="text" name="cover" class="form-control" id="news-cover" placeholder="cover">
+  </div>
+  <div class="form-group">
+    <label for="news-url">url</label>
+    <input type="text" name="url" class="form-control" id="news-url" placeholder="url">
   </div>
   <button type="submit" class="btn btn-primary">提交</button>
 </form>

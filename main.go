@@ -61,12 +61,14 @@ func Follow(c echo.Context) error {
 	return c.String(http.StatusOK, "0")
 }
 
-//Reg 注册
+//Reg 注册 /reg?email=
 func Reg(c echo.Context) error {
 
-	host := "https://readfollow.com"
-	// host = "http://192.168.1.152:8888"
-	email := c.Param("email")
+	host := "http://readfollow.com"
+	// host := "http://192.168.1.152:8888"
+	// email := c.Param("email")
+	email := c.QueryParam("email")
+
 	user := orm.User{}
 	user.GetUserByEmail(email)
 	if !user.Registered && user.Subscribed { // 未注册，已订阅
@@ -140,14 +142,17 @@ func Unsubscribed(c echo.Context) error {
 
 //Text 文本
 func Text(c echo.Context) error {
-	email := c.Param("email")
-	user := orm.User{}
-	user.GetUserByEmail(email)
-	if user.Invited && user.Registered && user.Subscribed && user.OpenID != "" {
-		str := c.QueryParam("s")
-		if str != "" {
-			repository.SendText(user.OpenID, str)
-			return c.String(http.StatusOK, "1")
+	// email := c.Param("email")
+	email := c.QueryParam("email")
+	if email != "" {
+		user := orm.User{}
+		user.GetUserByEmail(email)
+		if user.Invited && user.Registered && user.Subscribed && user.OpenID != "" {
+			str := c.QueryParam("content")
+			if str != "" {
+				repository.SendText(user.OpenID, str)
+				return c.String(http.StatusOK, "1")
+			}
 		}
 	}
 	return c.String(http.StatusOK, "0")
@@ -155,21 +160,25 @@ func Text(c echo.Context) error {
 
 //Article 文章
 func Article(c echo.Context) error {
-	email := c.Param("email")
-	user := orm.User{}
-	user.GetUserByEmail(email)
-	if user.Invited && user.Registered && user.Subscribed && user.OpenID != "" {
-		title := c.QueryParam("title")
-		description := c.QueryParam("description")
-		cover := c.QueryParam("cover")
-		url := c.QueryParam("url")
-		if title != "" && description != "" {
-			repository.SendArticle(user.OpenID, title, description, cover, url)
-			return c.String(http.StatusOK, "1")
+	// email := c.Param("email")
+	email := c.QueryParam("email")
+	if email != "" {
+		user := orm.User{}
+		user.GetUserByEmail(email)
+		if user.Invited && user.Registered && user.Subscribed && user.OpenID != "" {
+			title := c.QueryParam("title")
+			description := c.QueryParam("description")
+			cover := c.QueryParam("cover")
+			url := c.QueryParam("url")
+			if title != "" && description != "" {
+				repository.SendArticle(user.OpenID, title, description, cover, url)
+				return c.String(http.StatusOK, "1")
+			}
 		}
 	}
 	return c.String(http.StatusOK, "0")
 }
+
 func main() {
 	orm.DB().AutoMigrate(&orm.User{})
 
@@ -188,7 +197,7 @@ func main() {
 	// Route => handler
 	e.GET("/", Home)
 
-	e.GET("/reg/:email", Reg)
+	e.GET("/reg", Reg)
 
 	e.GET("/join/:token", Join)
 
@@ -196,9 +205,9 @@ func main() {
 
 	e.GET("/unsubscribed/:token", Unsubscribed)
 
-	e.GET("/text/:email", Text)
+	e.GET("/text", Text)
 
-	e.GET("/article/:email", Article)
+	e.GET("/article", Article)
 
 	e.File("/favicon.ico", "images/favicon.ico")
 
@@ -207,7 +216,7 @@ func main() {
 	// e.Static("/", "src")
 	// Start server
 	// e.Logger.Fatal(e.Start(":8888"))
-	go e.Logger.Fatal(e.Start(":80"))
+	e.Logger.Fatal(e.Start(":80"))
 	// e.Logger.Fatal(e.StartAutoTLS(":443"))
 
 }
