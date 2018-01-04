@@ -36,6 +36,12 @@ func (n *ArticleNotice) Send() {
 			PicURL:      n.PicURL,
 			URL:         n.URL,
 		},
+		custom.Article{
+			Title:       "哈哈哈哈哈哈哈哈",
+			Description: n.Description,
+			PicURL:      n.PicURL,
+			URL:         n.URL,
+		},
 	}
 
 	msg := custom.NewNews(toUser, news, "")
